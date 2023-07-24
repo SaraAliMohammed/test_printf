@@ -15,7 +15,7 @@ int print_string(char *str)
 	if (str == NULL)
 	{
 		print_string("(null)");
-		return 0;
+		return (0);
 	}
 
 	while (str[len])
@@ -68,7 +68,7 @@ int _printf(const char *format, ...)
 			{
 				_putchar('%');
 				counter++;
-				if(*format)
+				if (*format)
 				{
 					_putchar(*format);
 					counter++;
@@ -82,4 +82,5 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+	return (counter);
 }
