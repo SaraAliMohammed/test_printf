@@ -26,6 +26,53 @@ int print_string(char *str)
 	return (len);
 }
 
+
+/**
+ * numlen - Writes the length of a number
+ * @num: number to calculate length
+ *
+ * Return: length of the number.
+*/
+
+int numlen(int num)
+{
+	if (num == 0)
+		return (0);
+	return (1 + numlen(num / 10));
+}
+
+/**
+ * print_number - Writes the number n to stdout
+ * @n: number to print
+ *
+ * Return: 0 on Success.
+*/
+
+int print_number(int n)
+{
+	if (n == -2147483648)
+	{
+		_putchar('-');
+		_putchar('2');
+		print_number(147483648);
+	}
+	else if (n < 0)
+	{
+		_putchar('-');
+		n = -n;
+	}
+	if (n >= 10)
+	{
+		print_number(n / 10);
+		print_number(n % 10);
+	}
+	else if (n < 10)
+	{
+		_putchar(n + '0');
+	}
+	return (0);
+}
+
 /**
  * _printf -  produces output according to a format.
  * @format: character string.
@@ -35,7 +82,7 @@ int print_string(char *str)
 
 int _printf(const char *format, ...)
 {
-	int counter = 0;
+	int counter = 0, number;
 	va_list arguments_list;
 	char c, *str;
 
@@ -63,6 +110,14 @@ int _printf(const char *format, ...)
 			{
 				_putchar('%');
 				counter++;
+			}
+			else if (*format == 'd' || *format == 'i')
+			{
+				number = va_arg(arguments_list, int);
+				if (number < 0)
+					counter++;
+				counter += numlen(number);
+				print_number(number);
 			}
 			else
 			{
